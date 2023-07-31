@@ -31,7 +31,7 @@ class UsersViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         methods=["get"],
         name="Get user's posts",
         url_path="posts",
-        url_name="users_posts",
+        url_name="posts",
     )
     def posts(self, request, pk=None):
         user = get_object_or_404(User, pk=pk)
