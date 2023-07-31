@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "posts-service"
+version = "0.1.0"
+description = ""
+authors = ["mihett05 <mihett05@yandex.ru>"]
+readme = "README.md"
+packages = [{include = "posts_service"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.2.3"
+djangorestframework = "^3.14.0"
+drf-spectacular = "^0.26.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
