@@ -1,13 +1,17 @@
-from rest_framework import viewsets, mixins, serializers
+from rest_framework import viewsets, mixins, serializers, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
-from drf_spectacular.utils import extend_schema, inline_serializer
+from drf_spectacular.utils import extend_schema, inline_serializer, extend_schema_view
 
 from posts.models import Post
-from .serializers import UserSerializer, PostSerializer
-from .permissions import IsPostOwnerOrReadOnly
+from .serializers import (
+    UserSerializer,
+    PostSerializer,
+    NotFoundResponse,
+    ForbiddenResponse,
+)
 
 User = get_user_model()
 
@@ -19,10 +23,7 @@ class UsersViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     @extend_schema(
         responses={
             200: PostSerializer(many=True),
-            404: inline_serializer(
-                name="NotFoundResponse",
-                fields={"detail": serializers.CharField(default="Not found.")},
-            ),
+            404: NotFoundResponse,
         }
     )
     @action(
@@ -30,7 +31,7 @@ class UsersViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         methods=["get"],
         name="Get user's posts",
         url_path="posts",
-        url_name="User's posts",
+        url_name="users_posts",
     )
     def posts(self, request, pk=None):
         user = get_object_or_404(User, pk=pk)
@@ -43,6 +44,10 @@ class UsersViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         )
 
 
+@extend_schema_view(
+    create=extend_schema(responses={403: ForbiddenResponse}),
+    destroy=extend_schema(responses={403: ForbiddenResponse, 404: NotFoundResponse}),
+)
 class PostsViewSet(
     mixins.CreateModelMixin,
     mixins.DestroyModelMixin,
@@ -50,4 +55,4 @@ class PostsViewSet(
 ):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (IsPostOwnerOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
