@@ -24,12 +24,30 @@ class UserSerializer(serializers.ModelSerializer):
 
         return user
 
+    def update(self, instance, validated_data):
+        for key, value in validated_data.items():
+            if key != "password":
+                setattr(instance, key, value)
+            else:
+                instance.set_password(validated_data["password"])
+        instance.save()
+
+
+class LoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["username", "password"]
+
 
 class PostSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
-    user = serializers.IntegerField(read_only=True)
+    user = serializers.SlugRelatedField(
+        many=False,
+        slug_field="username",
+        read_only=True,
+    )
     created_at = serializers.DateTimeField(read_only=True)
-    update_at = serializers.DateTimeField(read_only=True)
+    updated_at = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Post
