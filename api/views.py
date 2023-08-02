@@ -5,9 +5,10 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from drf_spectacular.utils import extend_schema, inline_serializer, extend_schema_view
 
+from users.serializers import UserSerializer
+
 from posts.models import Post
 from .serializers import (
-    UserSerializer,
     PostSerializer,
     NotFoundResponse,
     ForbiddenResponse,
@@ -55,4 +56,4 @@ class PostsViewSet(
 ):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = [permissions.IsAuthenticated]

@@ -10,5 +10,3 @@ router.register("posts", PostsViewSet, basename="posts")
 urlpatterns = [
     path("", include(router.urls)),
 ]
-
-print(router.urls)

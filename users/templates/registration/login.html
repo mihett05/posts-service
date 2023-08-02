@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}Логин{% endblock %}
+{% block header %}Логин{% endblock %}
+
+{% block content %}
+    <div class="form-container">
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                Неправильный логин или пароль
+            </div>
+        {% endif %}
+        <form action="{% url "users:login" %}" method="POST">
+            {% csrf_token %}
+            {% include "form.html" %}
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Логин</button>
+                <p class="text-center">или вы можете <a href="{% url "users:register" %}">зарегистрироваться</a></p>
+            </div>
+        </form>
+    </div>
+{% endblock %}
