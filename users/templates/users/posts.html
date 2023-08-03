@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% load render_markdown %}
+
+{% block title %}Посты {{ username }}{% endblock %}
+{% block header %}Посты пользователя {{ username }}{% endblock %}
+
+{% block content %}
+    <div class="py-4">
+        {% for post in posts %}
+            <article class="py-2">
+                <h3 id="{{ post.id }}"><a href="{% url 'users:posts' pk=id %}#{{ post.id }}">{{ post.title }}</a></h3>
+                <div class="px-5">
+                    {{ post.body|markdown|safe }}
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+{% endblock %}

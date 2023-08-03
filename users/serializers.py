@@ -2,6 +2,8 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers, validators
 from django.contrib.auth import get_user_model, password_validation
 
+from posts.serializers import PostSerializer
+
 
 User = get_user_model()
 
@@ -79,3 +81,11 @@ class UserSerializer(serializers.ModelSerializer):
             else:
                 instance.set_password(validated_data["password"])
         instance.save()
+
+
+class UserPostsSerializer(serializers.ModelSerializer):
+    posts = PostSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ["id", "username", "posts"]

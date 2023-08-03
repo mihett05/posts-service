@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}Пользователи{% endblock %}
+{% block header %}Пользователи{% endblock %}
+
+{% block content %}
+    {% for row in users %}
+        <div class="row row-cols-3 py-2">
+            {% for user in row %}
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ user.username }}</h5>
+                            <a href="{% url "users:posts" pk=user.pk %}" class="btn btn-primary">Посты</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}

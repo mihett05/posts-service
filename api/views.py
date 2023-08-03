@@ -6,10 +6,10 @@ from django.contrib.auth import get_user_model
 from drf_spectacular.utils import extend_schema, inline_serializer, extend_schema_view
 
 from users.serializers import UserSerializer
+from posts.serializers import PostSerializer
 
 from posts.models import Post
 from .serializers import (
-    PostSerializer,
     NotFoundResponse,
     ForbiddenResponse,
 )
