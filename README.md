@@ -14,6 +14,7 @@
 
 - Запустите сервер (напримре, на 8000 порту) `poetry run python manage.py runserver 8000`
 - Откройте приложение по ссылке http://localhost:8000/
+- Откройте Swagger по ссылке http://localhost:8000/api/docs/
 
 ### Запуск тестов
 
@@ -29,3 +30,5 @@
 ### Запуск сервера
 
 - Запуск на 8000 порту `docker compose up`
+- Откройте приложение по ссылке http://localhost:8000/
+- Откройте Swagger по ссылке http://localhost:8000/api/docs/
