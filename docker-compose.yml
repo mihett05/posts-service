@@ -1,0 +1,10 @@
+version: '3.1'
+
+services:
+  posts:
+    build: .
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/src/data
