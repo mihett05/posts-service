@@ -1,4 +1,4 @@
-from rest_framework import viewsets, mixins, status
+from rest_framework import viewsets, mixins, status, exceptions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -74,8 +74,10 @@ class UsersViewSet(
         )
 
     @extend_schema(responses={200: UserSerializer})
-    @action(detail=False)
+    @action(detail=False, url_name="self")
     def me(self, request):
+        if not request.user:
+            raise exceptions.AuthenticationFailed()
         return Response(self.get_serializer(instance=request.user).data)
 
 
