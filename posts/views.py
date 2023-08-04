@@ -40,5 +40,4 @@ class CreatePostView(generics.CreateAPIView):
                 "users:posts",
                 kwargs={"pk": request.user.id},
             ),
-            status=status.HTTP_201_CREATED,
         )
