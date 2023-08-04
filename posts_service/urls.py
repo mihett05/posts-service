@@ -28,4 +28,5 @@ urlpatterns = [
         name="swagger",
     ),
     path("users/", include("users.urls")),
+    path("posts/", include("posts.urls")),
 ]

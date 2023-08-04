@@ -84,6 +84,10 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserPostsSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для получения постов конкретного пользователя
+    """
+
     posts = PostSerializer(many=True, read_only=True)
 
     class Meta:

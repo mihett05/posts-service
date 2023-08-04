@@ -8,6 +8,18 @@ class PostSerializer(serializers.ModelSerializer):
         many=False,
         slug_field="username",
         read_only=True,
+    )  # username пользователя в качестве автора
+    title = serializers.CharField(
+        label="Заголовк",
+        required=True,
+    )
+    body = serializers.CharField(
+        label="Пост",
+        required=True,
+        style={
+            "input_type": "textarea",
+            "rows": "10",
+        },
     )
     created_at = serializers.DateTimeField(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)

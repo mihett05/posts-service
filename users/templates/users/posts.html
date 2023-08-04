@@ -8,7 +8,16 @@
     <div class="py-4">
         {% for post in posts %}
             <article class="py-2">
-                <h3 id="{{ post.id }}"><a href="{% url 'users:posts' pk=id %}#{{ post.id }}">{{ post.title }}</a></h3>
+                <div class="hstack gap-3">
+                    <h3 id="{{ post.id }}"><a href="{% url 'users:posts' pk=id %}#{{ post.id }}">{{ post.title }}</a>
+                    </h3>
+                    {% if request.user.username == post.user %}
+                        <form action="{% url 'posts:delete' pk=post.id %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-danger btn-sm">Удалить</button>
+                        </form>
+                    {% endif %}
+                </div>
                 <div class="px-5">
                     {{ post.body|markdown|safe }}
                 </div>

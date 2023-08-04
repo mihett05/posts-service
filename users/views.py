@@ -6,8 +6,6 @@ from django.shortcuts import HttpResponseRedirect, resolve_url
 from django.contrib.auth import login, get_user_model
 from django.conf import settings
 
-from posts.models import Post
-from posts.serializers import PostSerializer
 from .serializers import UserSerializer, UserPostsSerializer
 
 User = get_user_model()
@@ -39,7 +37,10 @@ class UsersList(generics.ListAPIView):
 
     def get(self, request, *args, **kwargs):
         users = self.filter_queryset(self.get_queryset())
-        return Response({"users": [users[i : i + 3] for i in range(0, len(users), 3)]})
+        rows = [
+            users[i : i + 3] for i in range(0, len(users), 3)
+        ]  # разбить юзеров на ряды по 3 в каждом
+        return Response({"rows": rows})
 
 
 class UserPostsView(generics.RetrieveAPIView):

@@ -1,5 +1,7 @@
 def custom_preprocessing_hook(endpoints):
-    print(endpoints)
+    """
+    Исключение не API endpoint'ов из openapi и swagger
+    """
     api_path = "/api/"
     return [
         (path, path_regex, method, callback)

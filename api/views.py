@@ -1,14 +1,15 @@
-from rest_framework import viewsets, mixins, serializers, permissions
+from rest_framework import viewsets, mixins, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
-from drf_spectacular.utils import extend_schema, inline_serializer, extend_schema_view
+from drf_spectacular.utils import extend_schema, extend_schema_view
 
 from users.serializers import UserSerializer
 from posts.serializers import PostSerializer
-
 from posts.models import Post
+from posts.permissions import IsPostOwner
+
 from .serializers import (
     NotFoundResponse,
     ForbiddenResponse,
@@ -30,7 +31,6 @@ class UsersViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     @action(
         detail=True,
         methods=["get"],
-        name="Get user's posts",
         url_path="posts",
         url_name="posts",
     )
@@ -56,4 +56,4 @@ class PostsViewSet(
 ):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsPostOwner]

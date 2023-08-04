@@ -5,13 +5,13 @@
 
 {% block content %}
     <div class="form-container">
-        <form action="{% url 'users:register' %}" method="POST">
+        <form action="{% url 'users:register' %}" method="post">
+            {% csrf_token %}
             {% include "serializer.html" %}
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Регистрация</button>
                 <p class="text-center">или вы можете <a href="{% url "users:login" %}">войти в аккаунт</a></p>
             </div>
-
         </form>
     </div>
 {% endblock %}

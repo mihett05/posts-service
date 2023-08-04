@@ -1,11 +1,11 @@
 from rest_framework import serializers
 
 
-class NotFoundResponse(serializers.Serializer):
+class NotFoundResponse(serializers.Serializer):  # Для openapi
     detail = serializers.CharField(default="Not found.")
 
 
-class ForbiddenResponse(serializers.Serializer):
+class ForbiddenResponse(serializers.Serializer):  # Для openapi
     detail = serializers.CharField(
         default="Authentication credentials were not provided."
     )

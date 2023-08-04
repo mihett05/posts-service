@@ -10,6 +10,13 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{% url 'users:list' %}">Пользователи</a>
                 </li>
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="btn btn-primary" aria-current="page" href="{% url 'posts:create' %}">
+                            Создать пост
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
             {% if not request.user.is_authenticated %}
                 <div class="d-flex" style="flex-basis: 16%; justify-content: space-between">

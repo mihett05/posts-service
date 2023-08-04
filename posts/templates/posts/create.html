@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}Создать пост{% endblock %}
+{% block header %}Создание поста{% endblock %}
+
+{% block content %}
+    <div class="form-container">
+        <form action="{% url 'posts:create' %}" method="POST">
+            {% csrf_token %}
+            {% include "serializer.html" %}
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Опубликовать</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
